@@ -1,0 +1,56 @@
+local currentroomValue = 0
+local currentrooms = workspace.CurrentRooms
+local roomValue = currentroomValue
+
+for i,v in pairs(currentrooms:GetChildren()) do
+    if tonumber(v.Name) > currentroomValue then
+        currentroomValue = tonumber(v.Name)
+    end
+end
+
+local currentroom = currentrooms:FindFirstChild(currentroomValue - 1)
+if currentroom:FindFirstChild("Door") then
+    local highlight = Instance.new("Highlight", currentroom.Door.Door)
+end
+
+if currentroom:FindFirstChild("SideroomDupe") then
+    currentroom.SideroomDupe.DoorFake:Destroy()
+end
+
+if currentroom:FindFirstChild("TriggerSeek") then
+    currentroom.TriggerSeek:Destroy()
+end
+
+if currentroom.Assets:FindFirstChild("LeverForGate") then
+    local highlight = Instance.new("Highlight", currentroom.Assets.LeverForGate.Main)
+    highlight.FillColor = Color3.new(0,0,1)
+end
+
+for i,v in pairs(currentroom.Assets:GetChildren()) do
+    for i,p in pairs(v:GetChildren()) do
+        if p.Name == "Keys" then
+            for i,k in pairs(p:GetChildren()) do
+                for i,w in pairs(k:GetChildren()) do
+                    if w.Name == "KeyObtain" then
+                        for i,f in pairs(w.Hitbox:GetChildren()) do
+                             if f.Name ~= "KeyHitbox" or v.Name ~= "PlaySound" or v.Name ~= "Sound" or v.Name ~= "TouchInterest" then
+                                local highlight = Instance.new("Highlight", f)
+                                highlight.FillColor = Color3.new(0,1,0)
+                            end
+                        end
+                    end
+                end
+            end
+        else
+            for i,k in pairs(p:GetChildren()) do
+                if p.Name == "KeyObtain" then
+                    if v.Name ~= "KeyHitbox" or v.Name ~= "PlaySound" or v.Name ~= "Sound" or v.Name ~= "TouchInterest" then
+                        local highlight = Instance.new("Highlight", v)
+                        highlight.FillColor = Color3.new(0,1,0)
+                    end
+                end
+            end
+        end
+    end
+end
+print(currentroom)
